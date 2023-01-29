@@ -1,0 +1,34 @@
+#!/bin/sh
+nm="filepeace"
+vs="r1"
+itsversion="""
+        \e[1;42m $nm \e[0m\e[100m version $vs \e[0m
+        \e[100m Created by Daniella Mesquita \e[0m
+"""
+#should get from config file in common with gipfs
+
+if [ "$1" = "" ]; then
+   echo "$itsversion"
+   echo "Type 'filepeace --help' (without quotes) to see a list of available commands."
+fi
+
+# displays help message with a list of commands:
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+   echo "        \e[1;42m $nm $vs \e[0m"
+   echo "Use these commands after/together with 'filepeace' command."
+   echo "Available commands:"
+   echo "Information:"
+   echo "   --help, -h                  Shows all available commands"
+   echo "   --version, -v               Shows the version of $nm"
+   echo "Others:"
+   echo "   verifact-hash               For Verifact users. Hash and validate a Verifact registry's files."
+   echo "------------------------------"
+fi
+
+if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+   echo "filepeace $vs"
+fi
+
+if [ "$1" = "verifact-hash" ]; then
+   bash /usr/lib/filepeace/verifact-hash/verifact-hash
+fi
