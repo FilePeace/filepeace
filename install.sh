@@ -43,6 +43,66 @@ git checkout -f
 chmod +x install.sh && sh ./install.sh
 cd "$SCRIPTPATH"
 
+echo "Installing mimetypes and their icons..." # this is continuously adding the same entries to /etc/mime.types and have to be fixed
+cat >> /etc/mime.types <<EOF
+text/x-md5			        md5
+text/x-sha256			    sha256
+text/x-md5sum			    md5sum
+text/x-sha256sum			sha256sum
+EOF
+#-<- should check if line is already added, before re-adding!
+cat > /usr/share/mime/packages/x-md5.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/x-md5">
+    <comment>MD5 hash checksum file</comment>
+    <generic-icon name="text-x-md5"/>
+    <glob pattern="*.md5"/>
+  </mime-type>
+</mime-info>
+
+EOF
+cat > /usr/share/mime/packages/x-sha256.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/x-sha256">
+    <comment>SHA256 hash checksum file</comment>
+    <generic-icon name="text-x-sha256"/>
+    <glob pattern="*.sha256"/>
+  </mime-type>
+</mime-info>
+
+EOF
+cat > /usr/share/mime/packages/x-md5sum.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/x-md5sum">
+    <comment>MD5 hash checksum file</comment>
+    <generic-icon name="text-x-md5sum"/>
+    <glob pattern="*.md5sum"/>
+  </mime-type>
+</mime-info>
+
+EOF
+cat > /usr/share/mime/packages/x-sha256sum.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/x-sha256sum">
+    <comment>SHA256 hash checksum file</comment>
+    <generic-icon name="text-x-sha256sum"/>
+    <glob pattern="*.sha256sum"/>
+  </mime-type>
+</mime-info>
+
+EOF
+$maysudo update-mime-database /usr/share/mime
+
+echo "Installing icons for .md5 and .sha256 files..."
+cd include/icons
+cp -r -f --preserve=all . /usr/share/icons/hicolor/scalable/mimetypes/
+cd "$SCRIPTPATH"
+$maysudo gtk-update-icon-cache /usr/share/icons/gnome/ -f
+
 echo "Installing icon for FilePeace..."
 cp icon.svg /usr/share/icons/hicolor/scalable/apps/
 sudo gtk-update-icon-cache /usr/share/icons/gnome/ -f
