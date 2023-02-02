@@ -43,4 +43,8 @@ git checkout -f
 chmod +x install.sh && sh ./install.sh
 cd "$SCRIPTPATH"
 
+echo "Installing icon for FilePeace..."
+cp icon.svg /usr/share/icons/hicolor/scalable/apps/
+sudo gtk-update-icon-cache /usr/share/icons/gnome/ -f
+
 echo "Done! Run 'filepeace' command to use it." && exit
