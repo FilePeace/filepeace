@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+rocketlaunch_dir=`pwd` #from https://unix.stackexchange.com/a/52919/470623
 
 if [ ! -e /usr/lib/filepeace ]; then sudo mkdir /usr/lib/filepeace; fi
 
@@ -17,7 +17,7 @@ if [ ! -e .git ]; then git clone --no-checkout https://github.com/FilePeace/webp
 if [ -e .git ]; then git pull; fi
 git checkout -f
 chmod +x install.sh && sh ./install.sh
-cd "$SCRIPTPATH"
+cd "$rocketlaunch_dir"
 
 echo "Installing folderstamp..."
 cd include/folderstamp
@@ -25,7 +25,7 @@ if [ ! -e .git ]; then git clone --no-checkout https://github.com/FilePeace/fold
 if [ -e .git ]; then git pull; fi
 git checkout -f
 chmod +x install.sh && sh ./install.sh
-cd "$SCRIPTPATH"
+cd "$rocketlaunch_dir"
 
 echo "Installing verifact-hash..."
 cd include/verifact-hash
@@ -33,7 +33,7 @@ if [ ! -e .git ]; then git clone --no-checkout https://github.com/FilePeace/veri
 if [ -e .git ]; then git pull; fi
 git checkout -f
 chmod +x install.sh && sh ./install.sh
-cd "$SCRIPTPATH"
+cd "$rocketlaunch_dir"
 
 echo "Installing recordings-tools..."
 cd include/recordings-tools
@@ -41,7 +41,7 @@ if [ ! -e .git ]; then git clone --no-checkout https://github.com/FilePeace/reco
 if [ -e .git ]; then git pull; fi
 git checkout -f
 chmod +x install.sh && sh ./install.sh
-cd "$SCRIPTPATH"
+cd "$rocketlaunch_dir"
 
 echo "Installing mimetypes and their icons..." # this is continuously adding the same entries to /etc/mime.types and have to be fixed
 cat >> /etc/mime.types <<EOF
@@ -100,7 +100,7 @@ $maysudo update-mime-database /usr/share/mime
 echo "Installing icons for .md5 and .sha256 files..."
 cd include/icons
 cp -r -f --preserve=all . /usr/share/icons/hicolor/scalable/mimetypes/
-cd "$SCRIPTPATH"
+cd "$rocketlaunch_dir"
 $maysudo gtk-update-icon-cache /usr/share/icons/gnome/ -f
 
 echo "Installing icon for FilePeace..."
