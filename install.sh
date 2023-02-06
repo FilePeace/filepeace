@@ -104,7 +104,7 @@ cd "$rocketlaunch_dir"
 $maysudo gtk-update-icon-cache /usr/share/icons/gnome/ -f
 
 echo "Installing icon for FilePeace..."
-cp icon.svg /usr/share/icons/hicolor/scalable/apps/
+cp icon.svg /usr/share/icons/hicolor/scalable/apps/filepeace.svg
 sudo gtk-update-icon-cache /usr/share/icons/gnome/ -f
 
 echo "Done! Run 'filepeace' command to use it." && exit
